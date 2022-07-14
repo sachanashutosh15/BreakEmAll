@@ -1,13 +1,14 @@
 import { Ball } from './ball.js';
 import { Paddle } from './paddle.js';
 import { InputHandler } from './input.js';
-import { buildLevel, level } from './levels.js';
+import { buildLevel, levels } from './levels.js';
 
 const GAMESTATE = {
   PAUSED: 0,
   RUNNING: 1,
   MENU: 2,
   GAMEOVER: 3,
+  NEWLEVEL: 4,
 }
 
 export class Game {
@@ -18,17 +19,22 @@ export class Game {
     this.ball = new Ball(this);
     this.paddle = new Paddle(this);
     this.gameObjects = [];
-    this.lives = 1;
+    this.bricks = [];
+    this.lives = 3;
+    this.levels = [...levels];
+    this.currentLevel = 0;
     new InputHandler(this.paddle, this);
   }
 
   start() {
-    if (this.gamestate !== GAMESTATE.MENU) return;
-    let bricks = buildLevel(this, level);
+    if (this.gamestate !== GAMESTATE.MENU &&
+      this.gamestate !== GAMESTATE.NEWLEVEL
+    ) return;
+    this.bricks = buildLevel(this, this.levels[this.currentLevel]);
+    this.ball.reset();
     this.gameObjects = [
       this.ball,
       this.paddle,
-      ...bricks
     ];
     this.gamestate = GAMESTATE.RUNNING;
   }
@@ -43,12 +49,17 @@ export class Game {
     ) {
       return;
     }
-    this.gameObjects.forEach((object) => object.update(deltaTime));
-    this.gameObjects = this.gameObjects.filter(object => !object.markedForDeletion);
+    if (this.bricks.length === 0) {
+      this.currentLevel++;
+      this.gamestate = GAMESTATE.NEWLEVEL;
+      this.start();
+    }
+    [...this.gameObjects, ...this.bricks].forEach((object) => object.update(deltaTime));
+    this.bricks = this.bricks.filter(brick => !brick.markedForDeletion);
   }
 
   draw(ctx) {
-    this.gameObjects.forEach((object) => object.draw(ctx));
+    [...this.gameObjects, ...this.bricks].forEach((object) => object.draw(ctx));
     if (this.gamestate === GAMESTATE.PAUSED) {
       ctx.rect(0, 0, this.gameWidth, this.gameHeight);
       ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
@@ -76,7 +87,7 @@ export class Game {
       ctx.font = '30px Arial';
       ctx.fillStyle = 'white';
       ctx.textAlign = 'center';
-      ctx.fillText('GAME OVER', this.gameWidth / 2, this.gameHeigth / 2);
+      ctx.fillText('GAME OVER', this.gameWidth / 2, this.gameHeight / 2);
     }
   }
 

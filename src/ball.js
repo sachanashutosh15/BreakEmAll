@@ -6,10 +6,17 @@ export class Ball {
     this.gameHeight = game.gameHeight;
     this.game = game;
     this.image = document.getElementById('imgBall');
-    this.speed = { x: 3, y: 3 };
-    this.position = { x: 400, y: 100 };
+    this.speed = { x: 3, y: -3 };
+    this.position = { x: 400, y: 500 };
     this.size = 20;
+    this.reset();
   }
+
+  reset() {
+    this.position = { x: 400, y: 500 };
+    this.speed = {x : 3, y: -3};
+  }
+
   draw(ctx) {
     ctx.drawImage(this.image, this.position.x, this.position.y, this.size, this.size);
   }
@@ -24,6 +31,7 @@ export class Ball {
     }
     if (this.position.y + this.size > this.gameHeight) {
       this.game.lives--;
+      this.reset();
     }
     if (detectCollision(this, this.game.paddle)) {
       this.speed.y = -this.speed.y;
