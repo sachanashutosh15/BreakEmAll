@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang='en'>
 	<head>
-		<meta name='viewport' content='width=device-width, initial-scale=1.0' />
+		<meta name='viewport' content='width=device-width initial-scale=1.0' />
 		<title> Break Them All </title>
-<style>
-	#gameScreen {
-		border: 1px solid black;
-	}
-	img {
-		display: none;
-	}
-</style>
+		<link href="./src/styles.css" rel="stylesheet" />
+		<script src="./src/starter.js"></script>
 	</head>
 	<body>
-		<img id="imgBall" src="./Assets/images/redBall.png" >
-		<img id="imgBrick" src="./Assets/images/brick.png" />
-		<canvas id='gameScreen' width='800' height='600'></canvas>
+		<img class='gameObj' id="imgBall" src="./Assets/images/redBall.png" >
+		<img class='gameObj' id="imgBrick" src="./Assets/images/brick.png" />
+		<div id="inputSelector">
+			<h4>Input Type</h4>
+			<button id="touch"> Touch </button>
+			<button id="keyBoard"> Key board </button>
+		</div>
+		<button id="start" >START</button>
+		<div id="leftBtn" class="button"></div>
+		<!-- <button class="button" id="leftBtn"></button> -->
+		<canvas id='gameScreen' height="600" width="800"></canvas>
+		<div id="rightBtn" class="button"></div>
+		<!-- <button class="button" id="rightBtn"></button> -->
 		<script src="./src/index.js" type="module"></script>
 	</body>
 </html>

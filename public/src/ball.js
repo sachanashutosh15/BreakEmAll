@@ -6,7 +6,7 @@ export class Ball {
     this.gameHeight = game.gameHeight;
     this.game = game;
     this.image = document.getElementById('imgBall');
-    this.speed = { x: 3, y: -3 };
+    this.speed = { x: this.gameWidth / 200, y: -this.gameHeight / 200 };
     this.position = { x: 400, y: 500 };
     this.size = 20;
     this.reset();
@@ -14,7 +14,7 @@ export class Ball {
 
   reset() {
     this.position = { x: 400, y: 500 };
-    this.speed = {x : 3, y: -3};
+    this.speed = {x : this.gameWidth / 200, y: -this.gameHeight / 200};
   }
 
   draw(ctx) {

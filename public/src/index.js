@@ -1,10 +1,14 @@
 import { Game } from './game.js';
 
 let canvas = document.getElementById('gameScreen');
+// canvas.style.height = '100%';
+canvas.style.width = '66%';
+console.log(canvas.height);
+console.log(canvas.width);
 let ctx = canvas.getContext('2d');
 
-const GAME_WIDTH = 800;
-const GAME_HEIGHT = 600;
+const GAME_WIDTH = canvas.width;
+const GAME_HEIGHT = canvas.height;
 
 let game = new Game(GAME_WIDTH, GAME_HEIGHT);
 
