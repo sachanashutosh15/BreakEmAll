@@ -12,7 +12,7 @@ const GAMESTATE = {
 }
 
 export class Game {
-  constructor (gameWidth, gameHeight) {
+  constructor(gameWidth, gameHeight) {
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
     this.gamestate = GAMESTATE.MENU;
@@ -27,6 +27,7 @@ export class Game {
   }
 
   start() {
+    console.log("___Started___")
     if (this.gamestate !== GAMESTATE.MENU &&
       this.gamestate !== GAMESTATE.NEWLEVEL
     ) return;
