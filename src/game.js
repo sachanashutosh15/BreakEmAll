@@ -78,7 +78,7 @@ export class Game {
       ctx.font = '30px Arial';
       ctx.fillStyle = 'white';
       ctx.textAlign = 'center';
-      ctx.fillText('BreakEmAll', this.gameWidth / 2, this.gameHeight / 2);
+      ctx.fillText('Press SPACE to start', this.gameWidth / 2, this.gameHeight / 2);
     }
 
     if (this.gamestate === GAMESTATE.GAMEOVER) {
